@@ -1,0 +1,292 @@
+:root {
+    --primary-pink: #ffafbd;
+    --accent-red: #ff6b6b;
+    --bg-light: #fff5f5;
+    --text-dark: #4b4b4b;
+}
+
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+body {
+    margin: 0;
+    font-family: 'Pretendard', -apple-system, sans-serif;
+    background-color: var(--bg-light);
+    color: var(--text-dark);
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* 인트로 화면 */
+#intro-screen {
+    height: 100vh; /* 정확히 화면 높이만큼만 사용 */
+    height: 100dvh; /* 모바일 브라우저 바까지 계산한 최신 단위 */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around; /* 구성 요소들을 위/중간/아래로 분산 */
+    background: linear-gradient(135deg, #ffafbd 0%, #ffc3a0 100%);
+    padding: 5vh 5%; /* 상하 여백을 화면 높이 비율로 설정 */
+    box-sizing: border-box; /* 패딩이 전체 높이에 영향을 주지 않도록 */
+    overflow: hidden;
+}
+
+.intro-content {
+    width: 100%; /* 부모가 꽉 차야 그 안에서 align-items가 힘을 발휘합니다 */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.main-title { 
+/* 폰트 크기도 화면 너비에 반응하게 설정 (큰 화면은 크게, 작은 화면은 작게) */
+    font-size: clamp(1.5rem, 8vw, 2.5rem);
+    color: white; 
+    text-shadow: 0 2px 4px rgba(0,0,0,0.1); 
+    margin: 0;
+ }
+.sub-title { 
+    font-size: clamp(0.9rem, 4vw, 1.1rem);
+    color: white; 
+    line-height: 1.5; 
+    margin: 10px 0;  
+}
+
+/* 사진이 돌아다닐 넓은 마당 만들기 */
+.photo-album {
+    width: 100%;
+    max-width: 700px; /* PC에서도 사진들이 너무 멀리 도망가지 않게 틀을 잡아줌 */
+    height: 45vh;
+    position: relative;
+    margin: 0 auto; /* 중앙 정렬 */
+}
+
+.polaroid {
+    position: absolute;
+    /* 화면 너비의 45% 정도로 설정 (창을 줄이면 같이 줄어듦) */
+    width: 45%; 
+    /* 너무 커지거나 작아지는 것을 방지 */
+    max-width: 200px; 
+    min-width: 100px;
+    
+    padding: 10px 10px 30px 10px; /* 여백도 비율로 주면 더 자연스러워요 */
+    background: white;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+    border-radius: 2px;
+    transition: transform 0.3s ease;
+}
+
+.polaroid:hover {
+    transform: scale(1.2) rotate(0deg); /* 크기를 1.1배 키우고 각도를 똑바로 세움 */
+    z-index: 10; /* 다른 사진보다 위로 올라오게 함 */
+    box-shadow: 0 15px 30px rgba(0,0,0,0.3); /* 그림자를 더 진하게 해서 붕 뜬 느낌을 줌 */
+}
+
+.polaroid img {
+    width: 100%;
+   /* 비율에 맞춰 높이 자동 조절 */
+    aspect-ratio: 1 / 1; /* 사진을 항상 정사각형으로 유지 */
+    object-fit: cover;
+    display: block;
+}
+
+/* 사진들을 화면 곳곳으로 퍼뜨리기 */
+.p1 { 
+    top: 0; 
+    left: 2%; 
+    transform: rotate(-15deg); 
+}
+.p2 { 
+    top: 4vh; 
+    right: 2%; 
+    transform: rotate(12deg); 
+    z-index: 2; 
+}
+.p3 { 
+    bottom: 2vh; 
+    left: 30%; 
+    transform: rotate(-5deg); /* 중앙 하단 */
+    z-index: 3; 
+}
+#start-btn {
+    padding: 16px 32px; 
+    font-size: 1.1rem; 
+    font-weight: bold;
+    background: white;
+    color: var(--accent-red); 
+    border: none;
+    border-radius: 50px; 
+    cursor: pointer; 
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+/* 메뉴 열기 버튼 */
+#menu-open-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: rgba(255, 255, 255, 0.8);
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 5px 12px;
+    font-size: 0.9rem;
+    z-index: 50;
+}
+
+/* 서랍 하단 영역 */
+.nav-footer {
+    padding: 20px;
+    border-top: 1px solid #eee;
+    margin-top: auto; /* 목록이 짧아도 하단에 고정됨 */
+}
+
+.home-btn {
+    width: 100%;
+    padding: 12px;
+    background: #f8f9fa;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    color: #666;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.home-btn:active {
+    background: #eee;
+}
+
+/* 네비게이션 서랍 스타일 */
+.side-nav {
+    position: fixed;
+    top: 0;
+    right: -250px; /* 처음엔 화면 밖에 숨김 */
+    width: 250px;
+    height: 100%;
+    background: white;
+    box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+    transition: 0.3s; /* 슥 나타나는 애니메이션 */
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+}
+
+.side-nav.active { right: 0; } /* active 클래스가 붙으면 화면 안으로 */
+
+.nav-header {
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    background: var(--accent-red);
+    color: white;
+    font-weight: bold;
+}
+
+.nav-list {
+    padding: 15px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4열로 번호 배치 */
+    gap: 10px;
+    overflow-y: auto;
+}
+
+.nav-item {
+    aspect-ratio: 1/1;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.nav-item.done { background: #fff0f0; border-color: var(--accent-red); color: var(--accent-red); }
+.nav-item.current { background: var(--accent-red); color: white; border-color: var(--accent-red); }
+
+
+/* 퀴즈 화면 */
+#quiz-screen { height: 100%; display: flex; flex-direction: column; }
+.progress-container { width: 100%; height: 6px; background: #eee; }
+#progress-bar { width: 0%; height: 100%; background: var(--accent-red); transition: width 0.3s; }
+
+#quiz-container { flex: 1; display: flex; align-items: center; justify-content: center; padding: 20px; }
+#question-box {
+    width: 100%; max-width: 400px; background: white;
+    padding: 25px; border-radius: 24px; box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+#question-text { font-size: 1.15rem; font-weight: 700; margin-bottom: 20px; line-height: 1.4; }
+
+.option-btn {
+    width: 100%; padding: 14px; margin-bottom: 10px;
+    border: 2px solid #f0f0f0; border-radius: 14px; background: white;
+    font-size: 1rem; text-align: left; cursor: pointer; transition: 0.2s;
+}
+.option-btn.selected { background: #fff0f0; border-color: var(--accent-red); color: var(--accent-red); font-weight: bold; }
+
+/* 이미지를 감싸는 각 아이템 틀 */
+.grid-item {
+    position: relative; /* 번호표의 기준점이 됨 */
+    width: 100%;
+}
+
+/* 사진 위에 뜰 번호표 스타일 */
+.grid-number {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    background-color: rgba(255, 107, 107, 0.9); /* 포인트 색상 (핑크/레드) */
+    color: white;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%; /* 동그라미 모양 */
+    font-size: 14px;
+    font-weight: bold;
+    z-index: 5;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+/* 이미지 스타일 */
+.image-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* 2열 */
+    gap: 10px; /* 사진 사이 간격 */
+    margin-bottom: 20px;
+}
+
+.grid-img {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 10px;
+    display: block; /* 하단 미세 공백 제거 */
+}
+
+/* 기존 단일 이미지 스타일도 유지 */
+.quiz-img {
+    width: 100%;
+    border-radius: 12px;
+    margin-bottom: 15px;
+}
+
+/* 미디어 스타일 */
+#media-content img { width: 100%; border-radius: 12px; margin-bottom: 15px; }
+#media-content audio { width: 100%; margin-bottom: 15px; }
+
+/* 하단 버튼 */
+.button-group { padding: 20px; display: flex; gap: 10px; background: white; }
+.button-group button {
+    flex: 1; padding: 16px; border: none; border-radius: 16px;
+    font-size: 1rem; font-weight: bold; cursor: pointer;
+}
+#prev-btn { background: #f0f0f0; color: #888; }
+#next-btn { background: var(--accent-red); color: white; }
+
+/* 결과 화면 */
+#result-screen { height: 100%; background: white; padding: 40px 20px; overflow-y: auto; text-align: center; }
+#wrong-list { text-align: left; color: #ff6b6b; font-size: 0.9rem; line-height: 1.6; }
+.reward-btn { margin-top: 20px; padding: 15px 30px; background: var(--accent-red); color: white; border: none; border-radius: 30px; font-weight: bold; }

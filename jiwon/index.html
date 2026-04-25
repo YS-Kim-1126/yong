@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>2주년 기념 & 부산 여행 퀴즈</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <section id="intro-screen">
+        <div class="intro-content">
+            <h1 class="main-title">🌸 2nd Anniversary 🌸</h1>
+            <p class="sub-title">2주년 기념 & 부산 여행 퀴즈<br>그동안의 추억을 한번 떠올려볼까?</p>
+            
+            <div class="photo-album">
+                <div class="polaroid p1"><img src="111.jpg" alt="추억1"></div>
+                <div class="polaroid p2"><img src="111.jpg" alt="추억2"></div>
+                <div class="polaroid p3"><img src="111.jpg" alt="추억3"></div>
+            </div>
+
+            <button id="start-btn" onclick="startQuiz()">기억력 테스트 시작! ❤️</button>
+        </div>
+    </section>
+
+    <main id="quiz-screen" style="display: none;">
+        <button id="menu-open-btn" onclick="toggleNav(true)">☰ 목록</button>
+
+        <div id="side-nav" class="side-nav">
+            <div class="nav-header">
+                <span>문제 목록</span>
+                <button onclick="toggleNav(false)">X</button>
+            </div>
+
+            <div id="nav-list" class="nav-list"> </div>
+
+            <div class="nav-footer">
+                <button class="home-btn" onclick="goToHome()">🏠 처음 화면으로</button>
+            </div>
+
+        </div>
+
+        <div class="progress-container">
+            <div id="progress-bar"></div>
+        </div>
+
+        <div id="quiz-container">
+            <div id="question-box">
+                <p id="question-text">문제가 여기에 나타납니다.</p>
+                <div id="media-content"></div>
+                <div id="options-container"></div>
+            </div>
+        </div>
+
+        <nav class="button-group">
+            <button id="prev-btn" onclick="changeQuestion(-1)">이전으로</button>
+            <button id="next-btn" onclick="changeQuestion(1)">다음으로</button>
+        </nav>
+    </main>
+
+    <section id="result-screen" style="display: none;">
+        <div id="result-box">
+            <h2>🎉 퀴즈 끝! 🎉</h2>
+            <div id="score-display"></div>
+            <p id="result-comment"></p>
+            <div id="wrong-answers-section">
+                <h3>오답 노트 (다음에 꼭 기억하기!)</h3>
+                <ul id="wrong-list"></ul>
+            </div>
+            <button class="reward-btn" onclick="location.reload()">다시 하기</button>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>
