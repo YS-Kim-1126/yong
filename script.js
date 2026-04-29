@@ -18,6 +18,76 @@ const quizData = [
 let currentIdx = 0;
 let userAnswers = Array(quizData.length).fill(null);
 
+document.querySelectorAll('.polaroid').forEach(photo => {
+    photo.addEventListener('click', function() {
+        // 이미 커진 사진을 다시 누르면 작아지게, 다른 걸 누르면 그것만 커지게
+        const isActive = this.classList.contains('active');
+        
+        // 일단 모든 사진의 active를 제거
+        document.querySelectorAll('.polaroid').forEach(p => p.classList.remove('active'));
+        
+        if (!isActive) {
+            this.classList.add('active'); // 클릭한 사진만 키우기
+        }
+    });
+});
+
+const startBtn = document.getElementById('start-btn');
+const pwModal = document.getElementById('password-modal');
+const pwInput = document.getElementById('pw-input');
+const pwSubmit = document.getElementById('pw-submit');
+const pwClose = document.getElementById('pw-close');
+const overlay = document.querySelector('.overlay');
+
+// 1. 시작 버튼 누르면 창 띄우기
+startBtn.addEventListener('click', () => {
+    pwModal.style.display = 'block';
+    overlay.classList.add('active');
+    overlay.style.display = 'block';
+    pwInput.focus();
+});
+
+// 2. 닫기 버튼 누르면 모달 닫기
+pwClose.addEventListener('click', () => {
+    pwModal.style.display = 'none';
+    overlay.style.display = 'none';
+    overlay.classList.remove('active');
+    pwInput.value = ''; // 입력값 초기화
+});
+
+// 3. 비밀번호 확인 로직
+function checkPassword() {
+    const password = pwInput.value.trim();
+    const correctAnswers = ["24/04/12", "2024/04/12"];
+
+    if (correctAnswers.includes(password)) {
+        alert("인증 성공! 우리 지원이 맞네 ❤️");
+        
+        // [핵심] 정답일 때만 퀴즈 화면으로 이동
+        // document.getElementById('intro-screen').style.display = 'none';
+        // document.getElementById('quiz-container').style.display = 'block';
+        // // 모달 및 오버레이 정리
+        // pwModal.style.display = 'none';
+        // overlay.style.display = 'none';
+        // startQuiz()
+
+        // [수정 포인트] 모달과 오버레이를 먼저 정리합니다.
+        pwModal.style.display = 'none';
+        overlay.style.display = 'none';
+        overlay.classList.remove('active');
+
+        startQuiz();
+        
+    } else {
+        alert("어라..? 우리 지원이가 아닌가본데? 🤨");
+        pwInput.value = '';
+    }
+}
+
+pwSubmit.addEventListener('click', checkPassword);
+pwInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') checkPassword(); });
+
+
 function startQuiz() {
     document.querySelector('#intro-screen').style.display = 'none';
     document.querySelector('#quiz-screen').style.display = 'flex';

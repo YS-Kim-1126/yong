@@ -4,7 +4,12 @@
     --bg-light: #fff5f5;
     --text-dark: #4b4b4b;
 }
-
+@font-face {
+    font-family: 'TheJamsil'; /* 내가 사용할 이름 설정 */
+    src: url('./KyoboHandwriting2025lyb.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
 * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
 body {
@@ -14,6 +19,68 @@ body {
     color: var(--text-dark);
     height: 100vh;
     overflow: hidden;
+}
+
+
+/* 배경 원들을 감싸는 틀 */
+.bg-circles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0; /* 콘텐츠보다 뒤로 보냄 */
+    overflow: hidden;
+}
+
+/* 공통 원 스타일 (비눗방울 느낌) */
+.circle {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(40px);
+    opacity: 0.6;
+    
+    /* 애니메이션 설정 확인 */
+    animation: floating 2.5s linear infinite;
+    
+    /* [추가] 브라우저에게 움직임을 미리 준비하라고 명령 */
+    will-change: transform;
+}
+
+/* 1번 원: 왼쪽 상단 (연한 민트) */
+.c1 {
+    width: 150px;
+    height: 150px;
+    background: #f0f3fc;
+}
+
+/* 2번 원: 오른쪽 중앙 (연한 보라) */
+.c2 {
+    width: 150px;
+    height: 150px;
+    background: #f0f3fc;
+    top: 30%;
+    right: 10px;
+}
+
+/* 3번 원: 왼쪽 하단 (연한 화이트 블루) */
+.c3 {
+    width: 150px;
+    height: 150px;
+    background: #f0f9ff;
+    bottom: -50px;
+    left: 10%;
+}
+
+@keyframes floating {
+    from { transform: rotate(0deg) translateY(-20px) rotate(0deg); }
+    to { transform: rotate(360deg) translateY(-20px) rotate(-360deg); }
+}
+
+
+.intro-content {
+    position: relative;
+    z-index: 10; 
 }
 
 /* 인트로 화면 */
@@ -37,18 +104,28 @@ body {
     align-items: center;
 }
 
-.main-title { 
-/* 폰트 크기도 화면 너비에 반응하게 설정 (큰 화면은 크게, 작은 화면은 작게) */
-    font-size: clamp(1.5rem, 8vw, 2.5rem);
-    color: white; 
-    text-shadow: 0 2px 4px rgba(0,0,0,0.1); 
+.main-title {
+    font-size: clamp(2rem, 9vw, 2.8rem);
+    /* [수정] 깨끗한 화이트 색상 유지 또는 
+       블루 배경과 어울리는 아주 연한 크림색(#fdfbf6) 추천 */
+    color: rgb(252, 132, 102); 
+    white-space: nowrap;
+    /* [수정] 이중 그림자로 세련된 입체감 추가 */
+    text-shadow: 
+        1px 1px 1px rgba(0,0,0,0.1), /* 아주 연한 테두리 */
+        0px 4px 8px rgba(184, 103, 110, 0.2); /* 배경 블루와 어울리는 은은한 그림자 */
+        
     margin: 0;
- }
+    font-weight: 800; /* 조금 더 두껍게 */
+}
 .sub-title { 
-    font-size: clamp(0.9rem, 4vw, 1.1rem);
-    color: white; 
+    font-size: clamp(0.9rem, 11vw,1.1rem);
+
+    color: rgb(202, 52, 52); 
     line-height: 1.5; 
-    margin: 10px 0;  
+    margin-bottom: 40px; /* 글자 아래에 확실한 여백 확보 */
+    z-index: 11; /* 사진들(z-index: 10 예상)보다 살짝 위로 올려서 가려짐 방지 */
+    position: relative; 
 }
 
 /* 사진이 돌아다닐 넓은 마당 만들기 */
@@ -75,7 +152,40 @@ body {
     transition: transform 0.3s ease;
 }
 
-.polaroid:hover {
+.polaroid.active {
+    position: fixed; /* 화면 기준으로 배치 */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(0deg) scale(1.5); /* 중앙 이동 + 정렬 + 확대 */
+    z-index: 999; /* 모든 요소보다 맨 앞으로 */
+    width: 60vw; /* 중앙에 왔을 때 시원하게 보이도록 */
+    max-width: 350px;
+    cursor: zoom-out; /* 다시 누르면 나갈 것 같은 커서 모양 */
+}
+
+/* 캡션 기본 스타일 */
+.caption {
+    margin-top: 15px;
+    font-family: 'TheJamsil', cursive; /* 손글씨 폰트가 있다면 추천! */
+    font-size: 1.0rem;
+    color: #555;
+    text-align: center;
+    opacity: 0; /* 평소엔 숨김 */
+    transition: opacity 0.5s ease; /* 부드럽게 나타나게 */
+    white-space: nowrap;
+}
+
+/* 사진이 클릭되어 중앙에 왔을 때(.active) 메시지 노출 */
+.polaroid.active .caption {
+    opacity: 1;
+    font-size: 1.2rem; /* 커졌을 때 글씨도 조금 더 잘 보이게 */
+}
+
+
+/* .polaroid:hover  */
+
+/* 사진이 .active 상태가 '아닐 때만' 마우스를 올렸을 때 커지게 설정 */
+.polaroid:not(.active):hover {
     transform: scale(1.2) rotate(0deg); /* 크기를 1.1배 키우고 각도를 똑바로 세움 */
     z-index: 10; /* 다른 사진보다 위로 올라오게 함 */
     box-shadow: 0 15px 30px rgba(0,0,0,0.3); /* 그림자를 더 진하게 해서 붕 뜬 느낌을 줌 */
@@ -91,7 +201,6 @@ body {
 
 /* 사진들을 화면 곳곳으로 퍼뜨리기 */
 .p1 { 
-    top: 0; 
     left: 2%; 
     transform: rotate(-15deg); 
 }
@@ -102,8 +211,8 @@ body {
     z-index: 2; 
 }
 .p3 { 
-    bottom: 2vh; 
-    left: 30%; 
+    left: 32%; 
+    top: 2vh; 
     transform: rotate(-5deg); /* 중앙 하단 */
     z-index: 3; 
 }
@@ -118,6 +227,77 @@ body {
     cursor: pointer; 
     box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
+#start-btn:active {
+    transform: translateY(3px); /* 아래로 살짝 눌림 */
+    box-shadow: 
+        0 1px 0 #e05555,
+        0 4px 8px rgba(0,0,0,0.1);
+}
+
+.modal {
+    display: none; /* 평소엔 숨김 */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    width: 80%;
+    max-width: 300px;
+}
+
+.modal-content {
+    background: white;
+    padding: 25px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.modal-content h3 {
+    font-size: 1.1rem;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.pw-hint {
+    font-size: 0.8rem;
+    color: #888;
+    margin-bottom: 15px;
+}
+
+#pw-input {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #ffafbd;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+    outline: none;
+}
+
+.modal-btns button {
+    padding: 8px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#pw-submit { background: #ffafbd; color: white; margin-right: 5px; }
+#pw-close { background: #eee; color: #666; }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /* 메뉴 열기 버튼 */
 #menu-open-btn {

@@ -9,17 +9,47 @@
 <body>
 
     <section id="intro-screen">
+        <div class="overlay"></div>
+        <div class="bg-circles">
+            <div class="circle c1"></div>
+            <div class="circle c2"></div>
+            <div class="circle c3"></div>
+        </div>
+        
         <div class="intro-content">
             <h1 class="main-title">🌸 2nd Anniversary 🌸</h1>
-            <p class="sub-title">2주년 기념 & 부산 여행 퀴즈<br>그동안의 추억을 한번 떠올려볼까?</p>
+            <b class="sub-title">2주년 & 부산 여행 기념 이벤트 </b>
             
             <div class="photo-album">
-                <div class="polaroid p1"><img src="111.jpg" alt="추억1"></div>
-                <div class="polaroid p2"><img src="111.jpg" alt="추억2"></div>
-                <div class="polaroid p3"><img src="111.jpg" alt="추억3"></div>
+                <div class="polaroid p1">
+                    <img src="111.jpg" alt="추억1">
+                    <p class="caption">이때 우리 정말 좋았는데 우헤헤</p>
+                </div>
+
+                <div class="polaroid p2">
+                    <img src="111.jpg" alt="추억2">
+                    <p class="caption">맛있는 거 먹으러 갔던 날! 또 가고 싶다 ㅎㅎ</p>
+                </div>
+
+                <div class="polaroid p3">
+                    <img src="111.jpg" alt="추억3">
+                    <p class="caption">2년 동안 행복했어ㅎㅎ 앞으로도 잘 부탁해</p>
+                </div>
             </div>
 
-            <button id="start-btn" onclick="startQuiz()">기억력 테스트 시작! ❤️</button>
+            <button id="start-btn">퀴즈 시작! ❤️</button>
+
+            <div id="password-modal" class="modal">
+                <div class="modal-content">
+                    <h4>지원이 아니면 못풀어 ㅡ,ㅡ </h4>
+                    <p class="pw-hint">힌트: 우리 커플에게 가장 소중한 날 (YY/MM/DD)</p>
+                    <input type="text" id="pw-input" placeholder="뭘까용식" maxlength="8">
+                    <div class="modal-btns">
+                        <button id="pw-submit">확인</button>
+                        <button id="pw-close">닫기</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -43,7 +73,7 @@
         <div class="progress-container">
             <div id="progress-bar"></div>
         </div>
-
+        <!-- 걍 아키텍쳐 하세요... 전자,전기 회로 공부하고, 나중엔 양자컴 골부하세요... 하드웨어부터 소프트웨어까지 다 알면 돈 많이 법니다." -->
         <div id="quiz-container">
             <div id="question-box">
                 <p id="question-text">문제가 여기에 나타납니다.</p>
