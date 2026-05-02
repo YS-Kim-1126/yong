@@ -167,7 +167,7 @@ body {
 .caption {
     margin-top: 15px;
     font-family: 'TheJamsil', cursive; /* 손글씨 폰트가 있다면 추천! */
-    font-size: 1.0rem;
+    font-size: 0.2rem;
     color: #555;
     text-align: center;
     opacity: 0; /* 평소엔 숨김 */
@@ -178,7 +178,7 @@ body {
 /* 사진이 클릭되어 중앙에 왔을 때(.active) 메시지 노출 */
 .polaroid.active .caption {
     opacity: 1;
-    font-size: 1.2rem; /* 커졌을 때 글씨도 조금 더 잘 보이게 */
+    font-size: 1.0rem; /* 커졌을 때 글씨도 조금 더 잘 보이게 */
 }
 
 
@@ -216,6 +216,68 @@ body {
     transform: rotate(-5deg); /* 중앙 하단 */
     z-index: 3; 
 }
+
+/* 1. 앨범 컨테이너: 기존 이미지와 동일한 위치/곡률 유지 */
+.album-viewport {
+    position: relative;
+    overflow: hidden;
+    z-index: 5;
+}
+
+/* 2. 슬라이드 통로 */
+.album-slides {
+    display: flex;
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    width: 100%;
+}
+
+/* 3. 이미지 스타일: p1, p2의 이미지와 크기를 똑같이 맞춤 */
+.album-slides img {
+    width: 100%;
+    flex-shrink: 0;
+    object-fit: cover;
+    /* 고정 200px 대신, 다른 사진들과 비율을 맞추려면 aspect-ratio 사용 추천 */
+    aspect-ratio: 1 / 1; /* 사진이 정사각형이라면 1/1, 아니라면 적절히 조절 */
+    /* 만약 다른 이미지들이 특정 높이를 가지고 있다면 그 높이를 그대로 쓰세요 */
+    display: block;
+}
+
+.slide-btn {
+    position: absolute; 
+    top: 50%; 
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.5); /* 반투명 흰색 */
+    color: #333;
+    border: none; 
+    border-radius: 50%;
+    width: 28px; 
+    height: 28px; 
+    cursor: pointer; 
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    transition: background 0.3s;
+}
+
+
+.prev { 
+    left: 10px !important; /* 왼쪽 끝에서 10px 안쪽으로 */
+}
+.next { 
+    right: 10px !important; /* 오른쪽 끝에서 10px 안쪽으로 */
+}
+/* 확대된 상태일 때 버튼 스타일 */
+.polaroid.active .slide-btn {
+    width: 35px;
+    height: 35px;
+    font-size: 18px;
+    background: rgba(255, 255, 255, 0.8);
+    z-index: 100; /* 확대된 사진 위로 올라오게 */
+}
+
+
 #start-btn {
     padding: 16px 32px; 
     font-size: 1.1rem; 

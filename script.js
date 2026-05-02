@@ -17,17 +17,38 @@ const quizData = [
 
 let currentIdx = 0;
 let userAnswers = Array(quizData.length).fill(null);
+let p3Index = 0;
 
+// 1. 사진 슬라이드 기능 (이 함수는 따로 정의)
+function moveP3Slide(direction, event) {
+    // 버튼 클릭 시 폴라로이드가 작아지거나 커지는 이벤트 방지
+    if (event) event.stopPropagation();
+
+    const slides = document.getElementById('p3-slides');
+    if (!slides) return;
+
+    const totalImages = slides.querySelectorAll('img').length;
+    p3Index += direction;
+
+    if (p3Index >= totalImages) p3Index = 0;
+    else if (p3Index < 0) p3Index = totalImages - 1;
+
+    const offset = -p3Index * 100;
+    slides.style.transform = `translateX(${offset}%)`;
+}
+
+// 2. 기존 폴라로이드 확대/축소 로직 수정
 document.querySelectorAll('.polaroid').forEach(photo => {
-    photo.addEventListener('click', function() {
-        // 이미 커진 사진을 다시 누르면 작아지게, 다른 걸 누르면 그것만 커지게
+    photo.addEventListener('click', function(e) {
+        // [중요] 클릭된 요소가 슬라이드 버튼이면 확대/축소 로직 실행 안 함
+        if (e.target.closest('.slide-btn')) return;
+
         const isActive = this.classList.contains('active');
         
-        // 일단 모든 사진의 active를 제거
         document.querySelectorAll('.polaroid').forEach(p => p.classList.remove('active'));
         
         if (!isActive) {
-            this.classList.add('active'); // 클릭한 사진만 키우기
+            this.classList.add('active'); 
         }
     });
 });

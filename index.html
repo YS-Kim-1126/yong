@@ -22,17 +22,26 @@
             
             <div class="photo-album">
                 <div class="polaroid p1">
-                    <img src="111.jpg" alt="추억1">
+                    <img src="푸토리코.jpg" alt="추억1">
                     <p class="caption">이때 우리 정말 좋았는데 우헤헤</p>
                 </div>
 
                 <div class="polaroid p2">
-                    <img src="111.jpg" alt="추억2">
+                    <img src="퀘백음식.jpg" alt="추억2">
                     <p class="caption">맛있는 거 먹으러 갔던 날! 또 가고 싶다 ㅎㅎ</p>
                 </div>
 
-                <div class="polaroid p3">
-                    <img src="111.jpg" alt="추억3">
+                <div class="polaroid p3"> <!-- 전체 클릭 시 확대 -->
+                    <div class="album-viewport">
+                        <div id="p3-slides" class="album-slides">
+                            <img src="111.jpg" alt="추억3-1">
+                            <img src="123.jpg" alt="추억3-2">
+                            <img src="나.jpg" alt="추억3-3">
+                        </div>
+                        <!-- 버튼 클릭 시 event.stopPropagation()이 확대 기능을 막아줍니다 -->
+                        <button class="slide-btn prev" onclick="moveP3Slide(-1, event)">&#10094;</button>
+                        <button class="slide-btn next" onclick="moveP3Slide(1, event)">&#10095;</button>
+                    </div>
                     <p class="caption">2년 동안 행복했어ㅎㅎ 앞으로도 잘 부탁해</p>
                 </div>
             </div>
