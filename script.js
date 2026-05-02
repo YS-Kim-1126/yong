@@ -17,23 +17,35 @@ const quizData = [
 
 let currentIdx = 0;
 let userAnswers = Array(quizData.length).fill(null);
-let p3Index = 0;
 
-// 1. 사진 슬라이드 기능 (이 함수는 따로 정의)
-function moveP3Slide(direction, event) {
-    // 버튼 클릭 시 폴라로이드가 작아지거나 커지는 이벤트 방지
-    if (event) event.stopPropagation();
 
-    const slides = document.getElementById('p3-slides');
+// 각 앨범의 현재 인덱스를 저장하는 객체
+let albumIndices = {
+    p1: 0,
+    p2: 0,
+    p3: 0
+};
+
+function moveAlbumSlide(idPrefix, direction, event) {
+    if (event && typeof event.stopPropagation === 'function') {
+        event.stopPropagation();
+    }
+
+    const slides = document.getElementById(`${idPrefix}-slides`);
     if (!slides) return;
 
     const totalImages = slides.querySelectorAll('img').length;
-    p3Index += direction;
+    
+    // 해당 앨범의 인덱스 업데이트
+    albumIndices[idPrefix] += direction;
 
-    if (p3Index >= totalImages) p3Index = 0;
-    else if (p3Index < 0) p3Index = totalImages - 1;
+    if (albumIndices[idPrefix] >= totalImages) {
+        albumIndices[idPrefix] = 0;
+    } else if (albumIndices[idPrefix] < 0) {
+        albumIndices[idPrefix] = totalImages - 1;
+    }
 
-    const offset = -p3Index * 100;
+    const offset = -albumIndices[idPrefix] * 100;
     slides.style.transform = `translateX(${offset}%)`;
 }
 
