@@ -388,14 +388,38 @@ body {
 
 
 /* 퀴즈 화면 */
-#quiz-screen { height: 100%; display: flex; flex-direction: column; }
+#quiz-screen { 
+    height: 100vh; /* 100% 대신 100vh 권장 */
+    display: flex; 
+    flex-direction: column; 
+    overflow: hidden; /* 전체 화면 스크롤 방지 */
+}
 .progress-container { width: 100%; height: 6px; background: #eee; }
 #progress-bar { width: 0%; height: 100%; background: var(--accent-red); transition: width 0.3s; }
 
-#quiz-container { flex: 1; display: flex; align-items: center; justify-content: center; padding: 20px; }
+#quiz-container { 
+    flex: 1; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    padding: 15px; /* 모바일 여백 확보 */
+    overflow: hidden; /* 박스가 삐져나가지 않게 함 */
+}
+
 #question-box {
-    width: 100%; max-width: 400px; background: white;
-    padding: 25px; border-radius: 24px; box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+width: 100%; 
+    max-width: 400px; 
+    background: white;
+    padding: 20px; /* 패딩을 살짝 줄임 */
+    border-radius: 24px; 
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    
+    /* 추가: 화면 높이에 맞게 제한 */
+    max-height: 85vh; 
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto; /* 내용이 많으면 박스 안에서 스크롤 */
+    box-sizing: border-box; /* 패딩이 너비에 포함되도록 함 */
 }
 #question-text { font-size: 1.15rem; font-weight: 700; margin-bottom: 20px; line-height: 1.4; }
 
@@ -433,17 +457,19 @@ body {
 /* 이미지 스타일 */
 .image-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr; /* 2열 */
-    gap: 10px; /* 사진 사이 간격 */
-    margin-bottom: 20px;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px; /* 간격을 살짝 좁힘 */
+    margin-bottom: 15px;
+    flex-shrink: 0; /* 이미지가 너무 압축되지 않도록 설정 */
 }
 
 .grid-img {
     width: 100%;
-    height: 120px;
+    height: 20vh; /* 고정 px 대신 화면 높이의 20%로 설정 (유동적) */
+    max-height: 150px; /* 너무 커지는 것 방지 */
     object-fit: cover;
     border-radius: 10px;
-    display: block; /* 하단 미세 공백 제거 */
+    display: block;
 }
 
 /* 기존 단일 이미지 스타일도 유지 */

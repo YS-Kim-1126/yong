@@ -1,18 +1,18 @@
 const quizData = [
-    { type: "single", question: "1. 우리 엄마와 아빠는 몇년생일까?", options: ["1970/1972", "1968/1970", "1971/1973", "1965/1967"], correct: 1 },
-    { type: "single", question: "2. 현지가 다니는 대학교의 이름은?", options: ["University A", "University B", "University C", "University D"], correct: 0 },
-    { type: "single", question: "3. 2025 Summer에 용식이가 들었던 과목 2개는?", options: ["운영체제/알고리즘", "네트워크/데이터베이스", "CMSC330/CMSC351", "컴퓨터구조/보안"], correct: 2 },
-    { type: "single", question: "4. 우리 할머니 할아버지가 사시는 도시는?", options: ["서울", "부산", "대전", "광주"], correct: 1 },
-    { type: "single", question: "5. 용식이가 현재 근무 중인 부대 위치는?", options: ["강원도", "경기도", "전라도", "경상도"], correct: 0 },
-    { type: "single", question: "6. 용식이가 미국에서 다녔던 헬스장 이름은?", options: ["Gold's Gym", "Anytime Fitness", "Planet Fitness", "LA Fitness"], correct: 2 },
-    { type: "single", question: "7. 용식이의 고등학교 이름은?", options: ["OO고등학교", "XX고등학교", "ㅁㅁ고등학교", "ㅎㅎ고등학교"], correct: 3 },
-    { type: "single", question: "8. 용식이의 현재 몸무게는?", options: ["70kg", "75kg", "80kg", "85kg"], correct: 1 },
-    { type: "image-grid", question: "9. 이 중에서 김하민의 얼굴을 고르시오", imgs: ["123123.jpg","123.jpg"], options: ["1번", "2번", "3번", "4번"], correct: 0 },
-    { type: "multiple", question: "10. 용식이의 군대 선임/동기가 아닌 사람은?", options: ["정우", "우진", "민재", "지우", "현택", "은한"], correct: [1, 3] },
+    { type: "single", question: "1. 우리 엄마와 아빠는 몇년생일까?", options: ["1972/1969", "1979/1976", "1971/1973", "1977/1976"], correct: 3 },
+    { type: "single", question: "2. 현지가 다니는 대학교의 이름은?", options: ["University of Rochester", "Rutgers University-New Brunswick", "Rutgers University-Newwark", "Lewis & Clark College"], correct: 1 },
+    { type: "single", question: "3. 2025 Summer에 용식이가 들었던 과목 2개는?", options: ["OS/Algorithm", "Network/Database", "AI/Machine Learning", "Architecture/Cybersecurity"], correct: 2 },
+    { type: "single", question: "4. 우리 할머니 할아버지가 사시는 도시는?", options: ["보성", "여수", "전주", "광주"], correct: 3 },
+    { type: "single", question: "5. 용식이가 현재 근무 중인 부대 위치는?", options: ["진교", "진주", "진서", "진도"], correct: 0 },
+    { type: "single", question: "6. 용식이가 미국에서 다녔던 헬스장 이름은?", options: ["Gold's Gym", "Anytime Fitness", "Planet Fitness", "LA Fitness"], correct: 0 },
+    { type: "single", question: "7. 용식이의 고등학교 이름은?", options: ["북산고등학교", "명일고등학교", "북일고등학교", "성산고등학교"], correct: 2 },
+    { type: "single", question: "8. 용식이의 현재 몸무게는?", options: ["70kg", "72kg", "74.486kg", "75kg"], correct: 1 },
+    { type: "image-grid", question: "9. 이 중에서 김하민의 얼굴을 고르시오", imgs: ["김하민.jpg","이정민.jpg","임병규.jpg","황승진.jpg"], options: ["1번", "2번", "3번", "4번"], correct: 0 },
+    { type: "multiple", question: "10. 용식이의 군대 선임/동기가 아닌 사람은?", options: ["정우", "우진", "민재", "지우", "현택", "은한"], correct: [0,3,4,5] },
     { type: "audio", question: "11. 대화를 잘 들어보고 장소를 맞추시오", audio: "voice.mp3", options: ["지하철", "카페", "학교 앞", "잠실역"], correct: 2 },
     { type: "image", question: "12. 이 사진을 찍은 장소는 어디일까요?", img: "memory.jpg", options: ["한강", "해운대", "남산", "익선동"], correct: 3 },
-    { type: "single", question: "13. 용식이가 가장 좋아하는 음식은?", options: ["피자", "삼겹살", "초밥", "떡볶이"], correct: 1 },
-    { type: "single", question: "14. 우리가 다녀온 여행지 순서로 맞는 것은?", options: ["서울-강릉-인천", "인천-서울-강릉", "강릉-서울-인천", "서울-인천-강릉"], correct: 0 }   // 화면 주변에 엘범 만들어서 우리가 갔던 여행지역 사진들 확인할 수 있도록 하는거 좋을거 같음
+    { type: "single", question: "13. 용식이가 가장 좋아하는 음식은?", options: ["피자", "김치찌개", "초밥", "떡볶이"], correct: 0 },
+    { type: "single", question: "14. 우리가 다녀온 여행지 순서로 맞는 것은?", options: ["퀘백-뉴욕-시카고-푸에르토리코=시카고=서부-부산", "시카고-퀘백-뉴욕-시카고-푸에르토리코-서부-부산", "퀘백-뉴욕-서부-시카고-부산", "퀘백-뉴욕-시카고-푸에르토리코-서부-시카고-부산"], correct: 0 }   // 화면 주변에 엘범 만들어서 우리가 갔던 여행지역 사진들 확인할 수 있도록 하는거 좋을거 같음
 ];
 
 let currentIdx = 0;
