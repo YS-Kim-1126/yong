@@ -103,7 +103,14 @@ function checkPassword() {
         // pwModal.style.display = 'none';
         // overlay.style.display = 'none';
         // startQuiz()
-
+        // 음악 버튼 보이게 하기
+        const musicBtn = document.getElementById('music-toggle-btn');
+        musicBtn.style.display = 'inline-block'; 
+        
+        // 음악 재생 시작
+        if (player && player.playVideo) {
+            player.playVideo();
+        }
         // [수정 포인트] 모달과 오버레이를 먼저 정리합니다.
         pwModal.style.display = 'none';
         overlay.style.display = 'none';
@@ -256,4 +263,84 @@ function showResult() {
     document.querySelector('#score-display').innerHTML = `<h3>${quizData.length}문제 중 ${score}문제 정답!</h3>`;
     document.querySelector('#result-comment').innerText = score === quizData.length ? "완벽해! 넌 역시 최고야❤️" : "조금 틀렸지만 괜찮아, 이제 부산에서 더 많은 추억 쌓자!";
     document.querySelector('#wrong-list').innerHTML = wrongHTML || "틀린 문제가 없어요! 대단해!";
+}
+
+
+
+// [추가] 유튜브 플레이어 변수와 상태 변수
+let player;
+let isPlaying = false;
+let progressTimer;
+
+// [추가] YouTube API 비동기 로드
+var tag = document.createElement('script');
+tag.src = "https://www.youtube.com/iframe_api";
+var firstScriptTag = document.getElementsByTagName('script')[0];
+firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+
+// 1. YouTube API 준비
+function onYouTubeIframeAPIReady() {
+    player = new YT.Player('yt-player', {
+        height: '0',
+        width: '0',
+        videoId: '9Fmg0W_updc', // 여기에 원하는 영상 ID
+        playerVars: { 'autoplay': 0, 'controls': 0 },
+        events: { 'onReady': onPlayerReady }
+    });
+}
+
+function onPlayerReady() {
+    // 플레이어가 준비되면 시간을 업데이트하기 시작함
+    updateProgress(); 
+}
+
+// 2. 재생/일시정지 토글 (아이콘 변경)
+function toggleMusic() {
+    const btn = document.getElementById('music-toggle-btn');
+    if (!isPlaying) {
+        player.playVideo();
+        btn.innerText = "❚❚"; // 일시정지 모양으로 변경
+        isPlaying = true;
+    } else {
+        player.pauseVideo();
+        btn.innerText = "▶"; // 재생 모양으로 변경
+        isPlaying = false;
+    }
+}
+
+// 3. 재생 바 실시간 업데이트
+function updateProgress() {
+    setInterval(() => {
+        if (player && player.getCurrentTime) {
+            const currentTime = player.getCurrentTime();
+            const duration = player.getDuration();
+            
+            // 재생 바 업데이트
+            const progressPercent = (currentTime / duration) * 100;
+            document.getElementById('music-progress-bar').style.width = progressPercent + "%";
+            
+            // 시간 텍스트 업데이트 (00:00 형식)
+            document.getElementById('music-time').innerText = 
+                formatTime(currentTime) + " / " + formatTime(duration);
+        }
+    }, 1000);
+}
+
+// 4. 클릭 시 해당 위치로 이동 (Seek)
+function seek(event) {
+    const wrapper = event.currentTarget;
+    const clickX = event.offsetX;
+    const width = wrapper.clientWidth;
+    const duration = player.getDuration();
+    
+    const seekTime = (clickX / width) * duration;
+    player.seekTo(seekTime, true);
+}
+
+// 초 단위를 분:초로 바꾸는 도우미 함수
+function formatTime(time) {
+    const min = Math.floor(time / 60);
+    const sec = Math.floor(time % 60);
+    return (min < 10 ? '0' + min : min) + ":" + (sec < 10 ? '0' + sec : sec);
 }

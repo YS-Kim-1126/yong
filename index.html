@@ -25,8 +25,21 @@
                 <div class="polaroid p1">
                     <div class="album-viewport">
                         <div id="p1-slides" class="album-slides">
-                            <img src="푸토리코.jpg" alt="추억1-1">
-                            <img src="p1_2.jpg" alt="추억1-2">
+                            <img src="지원13.jpg" alt="추억1-1">
+                            <img src="지원15.jpg" alt="추억1-2">
+                            <img src="지원14.jpg" alt="추억1-3">
+                            <img src="지원12.jpg" alt="추억1-4">
+                            <img src="지원11.jpg" alt="추억1-5">
+                            <img src="지원10.jpg" alt="추억1-6">
+                            <img src="지원9.jpg" alt="추억1-7">
+                            <img src="지원8.jpg" alt="추억1-8">
+                            <img src="지원7.jpg" alt="추억1-9">
+                            <img src="지원6.jpg" alt="추억1-9">
+                            <img src="지원4.jpg" alt="추억1-9">
+                            <img src="지원5.jpg" alt="추억1-10">
+                            <img src="지원2.jpg" alt="추억1-10">
+                            <img src="지원1.jpg" alt="추억1-11">
+                            <img src="지원3.jpg" alt="추억1-12">
                         </div>
                         <button class="slide-btn prev" onclick="moveAlbumSlide('p1', -1, event)">&#10094;</button>
                         <button class="slide-btn next" onclick="moveAlbumSlide('p1', 1, event)">&#10095;</button>
@@ -40,7 +53,6 @@
                         <div id="p2-slides" class="album-slides">
                             <img src="퀘백음식.jpg" alt="추억2-1">
                             <img src="음식2.jpg" alt="추억2-2">
-                            <img src="음식3.jpg" alt="추억2-2">
                             <img src="음식4.jpg" alt="추억2-2">
                             <img src="음식5.jpg" alt="추억2-2">
                             <img src="음식6.jpg" alt="추억2-2">                            <img src="음식3.jpg" alt="추억2-2">
@@ -60,8 +72,13 @@
                     <div class="album-viewport">
                         <div id="p3-slides" class="album-slides">
                             <img src="푸토리코.jpg" alt="추억3-1">
-                            <img src="123.jpg" alt="추억3-2">
-                            <img src="나.jpg" alt="추억3-3">
+                            <img src="좋2.jpg" alt="추억3-2">
+                            <img src="시카고둘이.jpg" alt="추억3-3">
+                            <img src="좋1.jpg" alt="추억3-4">
+                            <img src="좋5.jpg" alt="추억3-5">
+                            <img src="좋7.jpg" alt="추억3-6">
+                            <img src="좋10.jpg" alt="추억3-6">
+                            <img src="레이크타호.jpg" alt="추억3-7">
                         </div>
                         <button class="slide-btn prev" onclick="moveAlbumSlide('p3', -1, event)">&#10094;</button>
                         <button class="slide-btn next" onclick="moveAlbumSlide('p3', 1, event)">&#10095;</button>
@@ -132,7 +149,21 @@
             <button class="reward-btn" onclick="location.reload()">다시 하기</button>
         </div>
     </section>
+    <div class="music-player-container">
+        <!-- 재생/일시정지 버튼 -->
+        <button id="music-toggle-btn" onclick="toggleMusic()">▶</button>
+        
+        <!-- 재생 상태바 영역 -->
+        <div class="progress-wrapper" onclick="seek(event)">
+            <div id="music-progress-bar"></div>
+        </div>
+        
+        <!-- 시간 표시 (00:00 / 03:45) -->
+        <div id="music-time">00:00 / 00:00</div>
+    </div>
 
+    <!-- 유튜브 플레이어 (숨김 유지) -->
+    <div id="yt-player" style="display:none;"></div>
     <script src="script.js"></script>
 </body>
 </html>
