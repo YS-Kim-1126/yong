@@ -178,7 +178,7 @@ body {
 /* 사진이 클릭되어 중앙에 왔을 때(.active) 메시지 노출 */
 .polaroid.active .caption {
     opacity: 1;
-    font-size: 1.0rem; /* 커졌을 때 글씨도 조금 더 잘 보이게 */
+    font-size: 0.9rem; /* 커졌을 때 글씨도 조금 더 잘 보이게 */
 }
 
 
@@ -243,38 +243,50 @@ body {
 }
 
 .slide-btn {
-    position: absolute; 
+position: absolute; 
     top: 50%; 
     transform: translateY(-50%);
-    background: rgba(255, 255, 255, 0.5); /* 반투명 흰색 */
+    background: rgba(255, 255, 255, 0.6); 
     color: #333;
     border: none; 
     border-radius: 50%;
-    width: 28px; 
-    height: 28px; 
+    
+    /* [수정] 버튼 크기를 더 작게 (기존 28~30px -> 22px) */
+    width: 20px; 
+    height: 20px; 
+    
     cursor: pointer; 
     z-index: 10;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 16px;
-    transition: background 0.3s;
+    font-size: 12px; /* 화살표 크기도 작게 */
+    
+    /* [핵심] 평소에는 안 보이게 설정 */
+    opacity: 0; 
+    pointer-events: none; /* 숨겨졌을 때는 클릭도 안 되게 함 */
+    transition: opacity 0.3s ease, background 0.3s;
 }
 
 
 .prev { 
-    left: 10px !important; /* 왼쪽 끝에서 10px 안쪽으로 */
+    left: 8px !important; /* 왼쪽 끝에서 10px 안쪽으로 */
 }
 .next { 
-    right: 10px !important; /* 오른쪽 끝에서 10px 안쪽으로 */
+    right: 8px !important; /* 오른쪽 끝에서 10px 안쪽으로 */
 }
 /* 확대된 상태일 때 버튼 스타일 */
 .polaroid.active .slide-btn {
-    width: 35px;
-    height: 35px;
-    font-size: 18px;
-    background: rgba(255, 255, 255, 0.8);
-    z-index: 100; /* 확대된 사진 위로 올라오게 */
+    opacity: 1;
+    pointer-events: auto; /* 보이게 되면 클릭 가능 */
+    
+    /* 확대 시 버튼이 너무 작으면 누르기 힘드니 살짝만 키움 */
+    width: 28px;
+    height: 28px;
+    font-size: 14px;
+}
+.slide-btn:hover {
+    background: rgba(255, 255, 255, 0.9);
 }
 
 
