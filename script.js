@@ -345,3 +345,108 @@ function formatTime(time) {
     const sec = Math.floor(time % 60);
     return (min < 10 ? '0' + min : min) + ":" + (sec < 10 ? '0' + sec : sec);
 }
+
+
+let gameTimer;
+let moveIntervals = [];
+
+// [새로 추가] 버튼 클릭 시 실행되는 함수
+function openMiniGame() {
+    const container = document.getElementById('game-container');
+    const startBtn = document.getElementById('minigame-start-btn');
+
+    // 1. 시작 버튼을 숨김
+    startBtn.style.display = 'none';
+    
+    // 2. 게임 컨테이너를 보여줌 (display를 먼저 바꿔야 크기 계산이 됨)
+    container.style.display = 'block';
+
+    // 3. 약간의 시간차(0.1초)를 두고 게임 시작 (브라우저가 렌더링할 시간 확보)
+    setTimeout(() => {
+        startFaceGame();
+    }, 100);
+}
+
+function startFaceGame() {
+    const container = document.getElementById('game-container');
+    container.innerHTML = ''; 
+    moveIntervals.forEach(clearInterval);
+    moveIntervals = [];
+
+    // [중요] 컨테이너 크기 다시 확인 (0이면 강제 지정)
+    const cw = container.clientWidth || 300;
+    const ch = container.clientHeight || 300;
+
+    const faceCount = 6;
+    let clickedCount = 0;
+
+    for (let i = 0; i < faceCount; i++) {
+        const face = document.createElement('div');
+        face.className = 'game-face';
+        // --- 이 부분이 이미지를 넣는 핵심 로직 ---
+        const img = document.createElement('img');
+        img.src = '나.jpg'; // 👈 여기에 실제 파일 이름을 확장자(png, jpg 등)까지 정확히 적어주세요.
+        img.style.width = '100%';   // 부모(face) 크기에 맞춤
+        img.style.height = '100%';
+        img.style.display = 'block';
+        img.style.pointerEvents = 'none'; // 이미지 때문에 클릭이 씹히는 현상 방지
+        
+        face.appendChild(img); 
+        // ------------------------------------------
+        
+        // 위치 랜덤 (컨테이너 안으로 제한)
+        let posX = Math.random() * (cw - 50);
+        let posY = Math.random() * (ch - 50);
+        let velX = (Math.random() - 0.5) * 8; // 속도 약간 조절
+        let velY = (Math.random() - 0.5) * 8;
+
+        face.style.left = posX + 'px';
+        face.style.top = posY + 'px';
+
+        face.onclick = (e) => {
+            e.stopPropagation();
+            face.style.transform = 'scale(0)';
+            clickedCount++;
+            setTimeout(() => face.remove(), 200);
+
+            if (clickedCount === faceCount) {
+                clearTimeout(gameTimer);
+                finishMiniGame(true);
+            }
+        };
+
+        container.appendChild(face);
+
+        const move = setInterval(() => {
+            posX += velX;
+            posY += velY;
+
+            // 벽 튕기기 로직
+            if (posX <= 0 || posX >= cw - 40) velX *= -1;
+            if (posY <= 0 || posY >= ch - 40) velY *= -1;
+
+            face.style.left = posX + 'px';
+            face.style.top = posY + 'px';
+        }, 20);
+
+        moveIntervals.push(move);
+    }
+
+    gameTimer = setTimeout(() => {
+        if (clickedCount < faceCount) {
+            finishMiniGame(false);
+        }
+    }, 5000); // 5초
+}
+
+function finishMiniGame(isSuccess) {
+    moveIntervals.forEach(clearInterval);
+    if (isSuccess) {
+        alert("내 얼굴을 너무 열심히 클릭한 거 아니야..?ㅋㅋㅋㅋ");
+    } else {
+        alert("5초 안에 내 얼굴 다 못 찾았어??? 다시해바~");
+    }
+    // 게임 종료 후 다시 시작 버튼을 보이게 하거나 새로고침 유도
+    document.getElementById('minigame-start-btn').style.display = 'inline-block';
+    document.getElementById('game-container').style.display = 'none';
+}

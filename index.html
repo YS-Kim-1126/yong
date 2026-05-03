@@ -146,6 +146,17 @@
                 <h3>오답 노트 (다음에 꼭 기억하기!)</h3>
                 <ul id="wrong-list"></ul>
             </div>
+
+            <hr style="margin: 20px 0; border: 0.5px solid #eee;">
+        
+            <div id="minigame-section">
+                <p>보너스 미션! 5초 안에 내 얼굴을 다 찾아보시오오</p>
+                <!-- 버튼을 누르면 이 버튼은 사라지고 게임 박스가 나타나야 함 -->
+                <button id="minigame-start-btn" class="reward-btn" onclick="openMiniGame()">보너스 게임 시작! ❤️</button>
+                
+                <!-- 초기에는 숨겨둠 -->
+                <div id="game-container" style="display:none;"></div>
+            </div>
             <button class="reward-btn" onclick="location.reload()">다시 하기</button>
         </div>
     </section>

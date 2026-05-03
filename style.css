@@ -638,3 +638,32 @@ width: 100%;
 #result-screen { height: 100%; background: white; padding: 40px 20px; overflow-y: auto; text-align: center; }
 #wrong-list { text-align: left; color: #ff6b6b; font-size: 0.9rem; line-height: 1.6; }
 .reward-btn { margin-top: 20px; padding: 15px 30px; background: var(--accent-red); color: white; border: none; border-radius: 30px; font-weight: bold; }
+
+
+/* 미니게임 */
+#game-container {
+    position: relative; /* 이게 없으면 얼굴이 화면 밖으로 나감 */
+    width: 100%;
+    height: 300px;
+    background-color: #fff5f7;
+    border: 2px dashed #ffb6c1;
+    border-radius: 15px;
+    overflow: hidden; /* 박스 밖으로 나가는 얼굴 숨김 */
+    margin: 20px 0;
+}
+
+.game-face {
+    position: absolute; /* 컨테이너 기준으로 위치 지정 */
+    font-size: 35px;
+    width: 50px;  /* 👈 얼굴이 보일 가로 크기 */
+    height: 50px; /* 👈 얼굴이 보일 세로 크기 */
+    cursor: pointer;
+    user-select: none;
+    transition: transform 0.2s;
+}
+
+/* 얼굴을 동그랗게 만들고 싶다면 추가 */
+.game-face img {
+    border-radius: 50%;
+    object-fit: cover;
+}
