@@ -276,7 +276,16 @@ function showResult() {
     });
 
     document.querySelector('#score-display').innerHTML = `<h3>${quizData.length}문제 중 ${score}문제 정답!</h3>`;
-    document.querySelector('#result-comment').innerText = score === quizData.length ? "완벽해! 넌 역시 최고야❤️" : "조금 틀렸지만 괜찮아, 이제 부산에서 더 많은 추억 쌓자!";
+    let comment = "";
+    if (score >= 12) {
+        comment = "어려웠을텐데 엄청 잘했네~ ❤️";
+    } else if (score >= 10) {
+        comment = "조금 틀리긴 했는데, 문제가 어렵긴 했어,,ㅎㅎ";
+    } else {
+        comment = "많이 어려웠구나 지원리, 괜찮아 부산에서 더 많은 추억 쌓자!";
+    }
+
+    document.querySelector('#result-comment').innerText = comment;
     document.querySelector('#wrong-list').innerHTML = wrongHTML || "틀린 문제가 없어요! 대단해!";
 }
 
