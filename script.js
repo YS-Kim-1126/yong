@@ -377,7 +377,7 @@ function startFaceGame() {
     const cw = container.clientWidth || 300;
     const ch = container.clientHeight || 300;
 
-    const faceCount = 6;
+    const faceCount = 8;
     let clickedCount = 0;
 
     for (let i = 0; i < faceCount; i++) {
