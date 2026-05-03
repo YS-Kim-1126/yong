@@ -27,7 +27,7 @@ body {
     left: 50%;
     transform: translateX(-50%);
     width: 280px;
-    background: rgba(255, 255, 255, 0.9);
+    background: rgba(255, 255, 255, 0.3); /* 기본적으로 아주 투명하게 (0.4) */
     padding: 10px 15px;
     border-radius: 15px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.1);
@@ -35,8 +35,26 @@ body {
     align-items: center;
     gap: 10px;
     z-index: 10000;
+    
+}
+/* 마우스를 올렸을 때 (Hover) */
+.music-player-container:hover {
+    background: rgba(255, 255, 255, 0.95); /* 거의 불투명하게 변경 */
+    opacity: 1; /* 투명도 완전 제거 */
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 
+/* 내부 버튼들도 기본적으로는 조금 연하게 */
+#music-toggle-btn, #music-time {
+    transition: opacity 0.3s ease;
+    opacity: 0.7;
+}
+
+/* 마우스를 올리면 버튼들도 선명하게 */
+.music-player-container:hover #music-toggle-btn,
+.music-player-container:hover #music-time {
+    opacity: 1;
+}
 #music-toggle-btn {
     background: none;
     border: none;
@@ -527,7 +545,7 @@ position: absolute;
     align-items: center; 
     justify-content: center; 
     padding: 15px; /* 모바일 여백 확보 */
-    overflow: hidden; /* 박스가 삐져나가지 않게 함 */
+    overflow-y: auto; 
 }
 
 #question-box {

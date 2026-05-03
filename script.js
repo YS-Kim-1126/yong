@@ -1,5 +1,5 @@
 const quizData = [
-    { type: "single", question: "1. 우리 엄마와 아빠는 몇년생일까?", options: ["1972/1969", "1979/1976", "1971/1973", "1977/1976"], correct: 3 },
+    { type: "single", question: "1. 우리 엄마와 아빠는 몇년생일까?", options: ["1972/1969", "1979/1976", "1971/1973", "1977/1974"], correct: 3 },
     { type: "single", question: "2. 현지가 다니는 대학교의 이름은?", options: ["University of Rochester", "Rutgers University-New Brunswick", "Rutgers University-Newwark", "Lewis & Clark College"], correct: 1 },
     { type: "single", question: "3. 2025 Summer에 용식이가 들었던 과목 2개는?", options: ["OS/Algorithm", "Network/Database", "AI/Machine Learning", "Architecture/Cybersecurity"], correct: 2 },
     { type: "single", question: "4. 우리 할머니 할아버지가 사시는 도시는?", options: ["보성", "여수", "전주", "광주"], correct: 3 },
@@ -8,11 +8,13 @@ const quizData = [
     { type: "single", question: "7. 용식이의 고등학교 이름은?", options: ["북산고등학교", "명일고등학교", "북일고등학교", "성산고등학교"], correct: 2 },
     { type: "single", question: "8. 용식이의 현재 몸무게는?", options: ["70kg", "72kg", "74.486kg", "75kg"], correct: 1 },
     { type: "image-grid", question: "9. 이 중에서 김하민의 얼굴을 고르시오", imgs: ["김하민.jpg","이정민.jpg","임병규.jpg","황승진.jpg"], options: ["1번", "2번", "3번", "4번"], correct: 0 },
-    { type: "multiple", question: "10. 용식이의 군대 선임/동기가 아닌 사람은?", options: ["정우", "우진", "민재", "지우", "현택", "은한"], correct: [0,3,4,5] },
-    { type: "audio", question: "11. 대화를 잘 들어보고 장소를 맞추시오", audio: "voice.mp3", options: ["지하철", "카페", "학교 앞", "잠실역"], correct: 2 },
+    { type: "multiple", question: "10. 용식이의 군대 선임/동기가 아닌 사람은?", options: ["정우", "우진", "민재", "지우", "현택", "은한"], correct: [0,1] },
+    { type: "audio", question: "11. 이때 우리는 뭘 타고 있었을까요?", audio: "voice.mp3", options: ["지하철", "자동차", "스쿠터", "자전거"], correct: 3 },
     { type: "image", question: "12. 이 사진을 찍은 장소는 어디일까요?", img: "memory.jpg", options: ["한강", "해운대", "남산", "익선동"], correct: 3 },
     { type: "single", question: "13. 용식이가 가장 좋아하는 음식은?", options: ["피자", "김치찌개", "초밥", "떡볶이"], correct: 0 },
-    { type: "single", question: "14. 우리가 다녀온 여행지 순서로 맞는 것은?", options: ["퀘백-뉴욕-시카고-푸에르토리코=시카고=서부-부산", "시카고-퀘백-뉴욕-시카고-푸에르토리코-서부-부산", "퀘백-뉴욕-서부-시카고-부산", "퀘백-뉴욕-시카고-푸에르토리코-서부-시카고-부산"], correct: 0 }   // 화면 주변에 엘범 만들어서 우리가 갔던 여행지역 사진들 확인할 수 있도록 하는거 좋을거 같음
+    { type: "single", question: "14. 우리가 다녀온 여행지 순서로 맞는 것은?", options: ["시카고-퀘백-뉴욕-시카고-푸에르토리코-서부-부산", "퀘백-뉴욕-서부-시카고-푸에르토리코-부산","퀘백-뉴욕-시카고-푸에르토리코-시카고-서부-부산","퀘백-뉴욕-시카고-푸에르토리코-서부-시카고-부산"], correct: 2 }, 
+    { type: "single", question: "15. 용식이가 미국에서 타고 다니다가 중고로 팔았던 차의 모델명은?", options: ["Ford Fusion", "Ford Focus", "Ford Fiesta", "Ford Escape"], correct: 1 },
+    { type: "single", question: "16. 용식이가 가장 좋아하는 야구 팀의 이름은?", options: ["KIA Giants", "KIA Lions", "KIA Bears", "KIA Tigers"], correct: 3 }
 ];
 
 let currentIdx = 0;
@@ -108,9 +110,8 @@ function checkPassword() {
         musicBtn.style.display = 'inline-block'; 
         
         // 음악 재생 시작
-        if (player && player.playVideo) {
-            player.playVideo();
-        }
+        document.getElementById('music-toggle-btn').innerText = "▶";
+        isPlaying = false;
         // [수정 포인트] 모달과 오버레이를 먼저 정리합니다.
         pwModal.style.display = 'none';
         overlay.style.display = 'none';
