@@ -444,7 +444,7 @@ function finishMiniGame(isSuccess) {
     if (isSuccess) {
         alert("내 얼굴을 너무 열심히 클릭한 거 아니야..?ㅋㅋㅋㅋ");
     } else {
-        alert("5초 안에 내 얼굴 다 못 찾았어??? 다시해바~");
+        alert("5초 생각보다 짧지 ㅎㅎ 다시해바~");
     }
     // 게임 종료 후 다시 시작 버튼을 보이게 하거나 새로고침 유도
     document.getElementById('minigame-start-btn').style.display = 'inline-block';
