@@ -9,7 +9,7 @@ const quizData = [
     { type: "single", question: "8. 용식이의 현재 몸무게는?", options: ["70kg", "72kg", "74.486kg", "75kg"], correct: 1 },
     { type: "image-grid", question: "9. 이 중에서 김하민의 얼굴을 고르시오", imgs: ["김하민.jpg","이정민.jpg","임병규.jpg","황승진.jpg"], options: ["1번", "2번", "3번", "4번"], correct: 0 },
     { type: "multiple", question: "10. 용식이의 군대 선임/동기가 아닌 사람은?", options: ["정우", "우진", "민재", "지우", "현택", "은한"], correct: [0,1] },
-    { type: "audio", question: "11. 이때 우리는 뭘 타고 있었을까요?", audio: "voice.mp3", options: ["지하철", "자동차", "스쿠터", "자전거"], correct: 3 },
+    { type: "audio", question: "11. 이때 우리는 뭘 타고 있었을까요?", audio: "타이를베이슨.MOV", options: ["지하철", "자동차", "스쿠터", "자전거"], correct: 3 },
     { type: "image", question: "12. 이 사진을 찍은 장소는 어디일까요?", img: "memory.jpg", options: ["한강", "해운대", "남산", "익선동"], correct: 3 },
     { type: "single", question: "13. 용식이가 가장 좋아하는 음식은?", options: ["피자", "김치찌개", "초밥", "떡볶이"], correct: 0 },
     { type: "single", question: "14. 우리가 다녀온 여행지 순서로 맞는 것은?", options: ["시카고-퀘백-뉴욕-시카고-푸에르토리코-서부-부산", "퀘백-뉴욕-서부-시카고-푸에르토리코-부산","퀘백-뉴욕-시카고-푸에르토리코-시카고-서부-부산","퀘백-뉴욕-시카고-푸에르토리코-서부-시카고-부산"], correct: 2 }, 
@@ -145,20 +145,28 @@ function renderQuestion() {
         mediaContent.innerHTML = `<img src="${quiz.img}" class="quiz-img">`;
     }
     else if(quiz.type === 'image-grid') {
-    // 이미지를 여러 개 담을 컨테이너 생성
-    let gridHTML = '<div class="image-grid">';
-    quiz.imgs.forEach((imgSrc, index) => {
-        gridHTML += `
-            <div class="grid-item">
-                <span class="grid-number">${index + 1}</span>
-                <img src="${imgSrc}" class="grid-img">
-            </div>`;
-    });
-    gridHTML += '</div>';
-    mediaContent.innerHTML = gridHTML;
+        // 이미지를 여러 개 담을 컨테이너 생성
+        let gridHTML = '<div class="image-grid">';
+        quiz.imgs.forEach((imgSrc, index) => {
+            gridHTML += `
+                <div class="grid-item">
+                    <span class="grid-number">${index + 1}</span>
+                    <img src="${imgSrc}" class="grid-img">
+                </div>`;
+        });
+        gridHTML += '</div>';
+        mediaContent.innerHTML = gridHTML;
     }
     else if(quiz.type === 'audio') {
         mediaContent.innerHTML = `<audio controls src="${quiz.audio}"></audio>`;
+
+// --- 비밀 버튼 추가 로직 ---
+        const secretBtn = document.createElement('button');
+        secretBtn.className = 'secret-video-btn';
+        secretBtn.onclick = () => openVideoModal(quiz.audio); // MOV 파일을 비디오로 열기
+        
+        // question-box에 버튼을 붙입니다.
+        document.getElementById('question-box').appendChild(secretBtn);
     }
     
 
@@ -449,4 +457,29 @@ function finishMiniGame(isSuccess) {
     // 게임 종료 후 다시 시작 버튼을 보이게 하거나 새로고침 유도
     document.getElementById('minigame-start-btn').style.display = 'inline-block';
     document.getElementById('game-container').style.display = 'none';
+}
+
+
+// 비밀 비디오 모달 열기 함수
+function openVideoModal(videoSrc) {
+    const modal = document.getElementById('video-modal');
+    const video = document.getElementById('surprise-video');
+    
+    if (!modal || !video) {
+        console.error("모달 요소를 찾을 수 없습니다!");
+        return;
+    }
+
+    video.src = videoSrc; 
+    modal.style.display = 'flex'; // hidden에서 보임으로 변경
+    video.play().catch(e => console.log("자동 재생 방지 정책으로 클릭 후 재생 필요"));
+}
+
+// 모달 닫기 함수
+function closeVideoModal() {
+    const modal = document.getElementById('video-modal');
+    const video = document.getElementById('surprise-video');
+    
+    video.pause();
+    modal.style.display = 'none';
 }

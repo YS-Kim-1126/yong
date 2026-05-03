@@ -176,5 +176,17 @@
     <!-- 유튜브 플레이어 (숨김 유지) -->
     <div id="yt-player" style="display:none;"></div>
     <script src="script.js"></script>
+
+
+        <!-- 비디오 서프라이즈 모달 -->
+    <div id="video-modal" class="modal-overlay" onclick="closeVideoModal()">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <video id="surprise-video" controls>
+                <source src="" type="video/quicktime">
+                <source src="" type="video/mp4">
+            </video>
+            <button class="close-modal-btn" onclick="closeVideoModal()">닫기</button>
+        </div>
+    </div>
 </body>
 </html>
