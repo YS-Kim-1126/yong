@@ -395,7 +395,8 @@ position: absolute;
     box-shadow: 0 10px 30px rgba(0,0,0,0.2);
 }
 
-.modal-content h3 {
+
+.modal-content h4 {
     font-size: 1.1rem;
     color: #333;
     margin-bottom: 10px;
@@ -680,10 +681,10 @@ width: 100%;
 /* 투명 버튼 스타일 */
 .secret-video-btn {
     position: absolute;
-    top: 30px;      /* 이미지의 파란 박스 위치 */
-    right: 30px;
-    width: 30px;    /* 클릭하기 편하게 적당한 크기 */
-    height: 30px;
+    top: 15px;      /* 이미지의 파란 박스 위치 */
+    right: 15px;
+    width: 50px;    /* 클릭하기 편하게 적당한 크기 */
+    height: 50px;
     background: transparent; 
     border: none;
     cursor: pointer;
@@ -705,15 +706,23 @@ width: 100%;
 }
 
 /* 모달 창 안의 비디오 크기 */
-.modal-content {
+.modal-content1 {
     position: relative;
     width: 90%;          /* 가로 폭은 화면의 90%까지 */
     max-width: 600px;    /* 너무 커지지 않게 최대 폭 제한 */
     display: flex;
     flex-direction: column;
+    background: white;
+    padding: 25px;
     align-items: center;
+    border-radius: 20px;
+    text-align: center;
     justify-content: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
 }
+
+
+
 
 #surprise-video {
     width: 100%;

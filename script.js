@@ -139,6 +139,12 @@ function renderQuestion() {
     const quiz = quizData[currentIdx];
     document.querySelector('#question-text').innerText = quiz.question;
     
+
+    //  이전 문제에서 생성되었을 수 있는 비밀 버튼을 먼저 삭제.
+    const oldSecretBtn = document.querySelector('.secret-video-btn');
+    if (oldSecretBtn) {
+        oldSecretBtn.remove();
+    }
     const mediaContent = document.querySelector('#media-content');
     mediaContent.innerHTML = '';
     if(quiz.type === 'image') {
